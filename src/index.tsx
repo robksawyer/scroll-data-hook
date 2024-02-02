@@ -29,11 +29,11 @@ const INITIAL_DATA = {
 };
 
 function getPositionX() {
-  return window.pageXOffset || 0;
+  return window.scrollX || window.pageXOffset || 0;
 }
 
 function getPositionY() {
-  return window.pageYOffset || 0;
+  return window.scrollY || window.pageYOffset || 0;
 }
 
 function getDirectionX(x: number, frameValues: ScrollDataType): string | null {
@@ -207,12 +207,12 @@ export const useScrollData = (options: OptionsType = {}): ScrollDataType => {
 
   React.useEffect(() => {
     // Add scrollListener
-    window.addEventListener("scroll", onScroll, true);
+    document.addEventListener("scroll", onScroll, true);
 
     // Remove listener when unmounting
     return () => {
       clearTimeout(scrollTimeout.current);
-      window.removeEventListener("scroll", onScroll, true);
+      document.removeEventListener("scroll", onScroll, true);
     };
   }, []);
 
